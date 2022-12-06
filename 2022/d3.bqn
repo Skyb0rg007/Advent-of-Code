@@ -1,7 +1,16 @@
 #!/usr/bin/env BQN
 
-ToNumber ← +⟜(10⊸×)´∘⌽-⟜'0'
-lines ← •file.Lines "d3.txt"
+lines ← •FLines "d3.txt"
+•Out "Day 3"
 
-•Show 5↑lines
+# Part 1
+Priority ← 1+'Z'⊸<◶⟨-⟜('A'-26), -⟜'a'⟩
+SplitLine ← ⊢(↓˜⋈↑˜)(2÷˜≠)
+Match ← ⊑(∊/⊣)´
+•Show +´ Priority∘Match∘SplitLine¨ lines
+
+# Part 2
+Group3 ← (3⌊∘÷˜(↕∘≠))⊔⊢
+
+•Show +´ Priority∘Match¨ Group3 lines
 
