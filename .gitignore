@@ -6,3 +6,6 @@ _build
 Mercury
 *.err
 *.mh
+
+# Executables
+2023/day2/day2
