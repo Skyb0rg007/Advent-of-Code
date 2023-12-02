@@ -1,0 +1,207 @@
+
+%use equality/strings.
+%use inequality/integers.
+
+int-list : type. %name int-list L l.
+
+int-list/nil : int-list.
+int-list/cons : integer -> int-list -> int-list.
+
+%% The first element of the int-list
+head : int-list -> integer -> type.
+%mode head +L -N.
+
+head/cons : head (int-list/cons N L) N.
+
+%worlds () (head _ _).
+%terminates L (head L _).
+%unique (head +L -N).
+
+%% The last element of the int-list
+last : int-list -> integer -> type.
+%mode last +L -N.
+
+last/cons-nil : last (int-list/cons N int-list/nil) N.
+last/cons-cons :
+    last (int-list/cons N2 L) N3 ->
+    last (int-list/cons N1 (int-list/cons N2 L)) N3.
+
+%worlds () (last _ _).
+%terminates L (last L _).
+%unique (last +L -N).
+
+%% Parse a digit
+digit-value : string -> integer -> type.
+%mode digit-value +S -D.
+
+digit-0 : digit-value "0" 0.
+digit-1 : digit-value "1" 1.
+digit-2 : digit-value "2" 2.
+digit-3 : digit-value "3" 3.
+digit-4 : digit-value "4" 4.
+digit-5 : digit-value "5" 5.
+digit-6 : digit-value "6" 6.
+digit-7 : digit-value "7" 7.
+digit-8 : digit-value "8" 8.
+digit-9 : digit-value "9" 9.
+
+digit-one   : digit-value "one"   1.
+digit-two   : digit-value "two"   2.
+digit-three : digit-value "three" 3.
+digit-four  : digit-value "four"  4.
+digit-five  : digit-value "five"  5.
+digit-six   : digit-value "six"   6.
+digit-seven : digit-value "seven" 7.
+digit-eight : digit-value "eight" 8.
+digit-nine  : digit-value "nine"  9.
+
+%worlds () (digit-value _ _).
+%terminates S (digit-value S _).
+%unique (digit-value +S -D).
+
+%% Parse a non-digit
+non-digit : string -> type.
+%mode non-digit +S.
+
+non-digit/a : non-digit "a".
+non-digit/b : non-digit "b".
+non-digit/c : non-digit "c".
+non-digit/d : non-digit "d".
+non-digit/e : non-digit "e".
+non-digit/f : non-digit "f".
+non-digit/g : non-digit "g".
+non-digit/h : non-digit "h".
+non-digit/i : non-digit "i".
+non-digit/j : non-digit "j".
+non-digit/k : non-digit "k".
+non-digit/l : non-digit "l".
+non-digit/m : non-digit "m".
+non-digit/n : non-digit "n".
+non-digit/o : non-digit "o".
+non-digit/p : non-digit "p".
+non-digit/q : non-digit "q".
+non-digit/r : non-digit "r".
+non-digit/s : non-digit "s".
+non-digit/t : non-digit "t".
+non-digit/u : non-digit "u".
+non-digit/v : non-digit "v".
+non-digit/w : non-digit "w".
+non-digit/x : non-digit "x".
+non-digit/y : non-digit "y".
+non-digit/z : non-digit "z".
+
+%% Convert an input line into a int-list of its digits
+tokenize-line : string -> int-list -> type.
+
+tokenize-line/nil : tokenize-line "" int-list/nil.
+tokenize-line/digit :
+    tokenize-line (D ++ S) (int-list/cons N L)
+    <- digit-value D N
+    <- tokenize-line S L.
+tokenize-line/nondigit : 
+    tokenize-line (D ++ S) L
+    <- non-digit D
+    <- tokenize-line S L.
+
+%%
+run-acc : string -> int-list -> integer -> integer -> type.
+
+run-acc/empty :
+    run-acc "" Line Acc (Acc + 10 * Last + Head)
+    <- head Line Head
+    <- last Line Last.
+run-acc/digit :
+    run-acc (D ++ Rest) Line Acc Result
+    <- digit-value D N
+    <- run-acc Rest (int-list/cons N Line) Acc Result.
+run-acc/nondigit :
+    run-acc (C ++ Rest) Line Acc Result
+    <- non-digit C
+    <- run-acc Rest Line Acc Result.
+run-acc/comma :
+    run-acc ("," ++ Rest) Line Acc Result
+    <- head Line Head
+    <- last Line Last
+    <- run-acc Rest int-list/nil (Acc + 10 * Last + Head) Result.
+
+%deterministic run-acc.
+
+run : string -> integer -> type.
+
+run/make : run S N <- run-acc S int-list/nil 0 N.
+
+%define part2-answer-test = N
+%solve _ : run "two1nine,eightwothree,abcone2threexyz,xtwone3four,4nineeightseven2,zoneight234,7pqrstsixteen" N.
+
+
+
+parse-line : string -> integer -> type.
+
+parse-line/make :
+    parse-line Line (10 * Head + Last)
+ <- tokenize-line Line L
+ <- head L Head
+ <- last L Last.
+
+
+
+non-digit-char : string -> type.
+%mode non-digit-char +S.
+
+non-digit-above : non-digit-char C <- char-ord C N <- N >= 58.
+non-digit-below : non-digit-char C <- char-ord C N <- 47 >= N.
+
+first-digit : string -> integer -> type.
+
+first-digit-here :
+    digit-value C D ->
+    first-digit (C ++ S) D.
+first-digit-there :
+    first-digit S2 D ->
+    non-digit-char S1 ->
+    first-digit (S1 ++ S2) D.
+
+last-digit : string -> integer -> type.
+
+last-digit-here :
+    digit-value C D ->
+    last-digit (S ++ C) D.
+last-digit-there :
+    last-digit S1 D ->
+    non-digit-char S2 ->
+    last-digit (S1 ++ S2) D.
+
+calibration-value : string -> integer -> type.
+
+- : calibration-value S (10 * D1 + D2)
+ <- first-digit S D1
+ <- last-digit S D2.
+
+string-list : type.
+
+string-list-nil : string-list.
+string-list-cons : string -> string-list -> string-list.
+
+cv-sum : string-list -> integer -> type.
+
+cv-sum-done : cv-sum string-list-nil 0.
+cv-sum-next : cv-sum (string-list-cons S1 L) (N1 + N2)
+ <- calibration-value S1 N1
+ <- cv-sum L N2.
+
+parse-cs : string -> string -> string-list -> type.
+
+parse-cs-done : parse-cs "" Acc (string-list-cons Acc string-list-nil).
+parse-cs-more : parse-cs (C ++ Rest) Acc L
+ <- char-ord C N
+ <- parse-cs Rest (Acc ++ C) L.
+parse-cs-next : parse-cs ("," ++ Rest) Acc (string-list-cons Acc L)
+ <- parse-cs Rest "" L.
+
+%define test-input = L
+%solve _ : parse-cs "1abc2,pqr3stu8vwx,a1b2c3d4e5f,treb7uchet" "" L.
+
+%define test-output = N
+%solve _ : cv-sum test-input N.
+
+% "two1nine,eightwothree,abcone2threexyz,xtwone3four,4nineeightseven2,zoneight234,7pqrstsixteen"
