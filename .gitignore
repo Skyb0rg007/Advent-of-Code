@@ -1,2 +1,8 @@
+# Misc build files
+*.log
+_build
 
+# Mercury build files
 Mercury
+*.err
+*.mh
