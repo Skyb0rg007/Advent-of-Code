@@ -3,7 +3,10 @@ TWELF := twelf-server
 MERCURY := mmc
 BUILDDIR := _build
 
-.PHONY: day1 day2 clean
+.PHONY: all clean day1 day2
+.DEFAULT: all
+
+all: day1 day2
 
 ## Day 1: Twelf
 day1: day1/day1.log
@@ -42,3 +45,6 @@ $(BUILDDIR)/has-twelf: | $(BUILDDIR)
 
 clean::
 	$(RM) $(BUILDDIR)/has-twelf
+
+clean::
+	$(RM) -d $(BUILDDIR)
