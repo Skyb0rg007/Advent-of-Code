@@ -6,11 +6,12 @@ BQN := BQN
 FORTRAN := gfortran
 UIUA := uiua
 SMALLTALK := gst
+GNATMAKE := gnatmake
 
 BUILDDIR := _build
 
-.PHONY: all clean day1 day2 day3 day4 day9 day11
-.PHONY: skel-prolog skel-bqn skel-uiua
+.PHONY: all clean day1 day2 day3 day4 day9 day11 day12
+.PHONY: skel-bqn skel-uiua
 .DEFAULT: all
 
 all: day2 day4 day9
@@ -68,11 +69,22 @@ clean::
 day11: day11/day11.st $(BUILDDIR)/has-smalltalk
 	@$(SMALLTALK) -q -f $< day11/input.txt
 
-### Skeletons
+## Day 12: Prolog
+day12: day12/day12.pl $(BUILDDIR)/has-prolog
+	@$(SWIPL) $< day12/input.txt
 
-## Prolog skeleton
-skel-prolog: skel-prolog/skel.pl $(BUILDDIR)/has-prolog
-	$(SWIPL) $< skel-prolog/input.txt
+
+## Day 13: Ada
+day13: $(BUILDDIR)/day13
+	@exec $(BUILDDIR)/day13 day13/input.txt
+
+$(BUILDDIR)/day13: day13/day13.adb $(BUILDDIR)/has-ada
+	$(GNATMAKE) day13/day13 -o $@ -D $(BUILDDIR)
+
+clean::
+	$(RM) $(BUILDDIR)/day13 $(BUILDDIR)/day13.o $(BUILDDIR)/day13.ali
+
+### Skeletons
 
 ## BQN skeleton
 skel-bqn: skel-bqn/skel.bqn $(BUILDDIR)/has-bqn
@@ -131,6 +143,10 @@ $(BUILDDIR)/has-smalltalk: | $(BUILDDIR)
 	$(GST) --version
 	touch $@
 
+$(BUILDDIR)/has-ada: | $(BUILDDIR)
+	$(GNATMAKE) --version
+	touch $@
+
 clean::
 	$(RM) $(BUILDDIR)/has-twelf
 	$(RM) $(BUILDDIR)/has-mercury
@@ -139,4 +155,5 @@ clean::
 	$(RM) $(BUILDDIR)/has-uiua
 	$(RM) $(BUILDDIR)/has-fortran
 	$(RM) $(BUILDDIR)/has-smalltalk
+	$(RM) $(BUILDDIR)/has-ada
 	$(RM) -d $(BUILDDIR)
