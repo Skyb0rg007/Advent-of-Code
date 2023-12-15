@@ -10,13 +10,15 @@ GNATMAKE := gnatmake
 
 BUILDDIR := _build
 
-.PHONY: all clean day1 day2 day3 day4 day9 day11 day12
-.PHONY: skel-bqn skel-uiua
+.PHONY: all clean
+.PHONY: day1  day2  day3  day4  day5  day6  day7  day8  day9  day10
+.PHONY: day11 day12 day13 day14 day15 day16 day17 day18 day19 day20
+.PHONY: day21 day22 day23 day24 day25
 .DEFAULT: all
 
-all: day2 day4 day9
+all: day2 day4 day11 day12 day13
 
-## Day 1: Twelf
+## Day 1: Twelf (TODO)
 day1: day1/day1.log
 	@echo "== Day 1 =="
 	@grep --text part.-answer $^
@@ -41,7 +43,7 @@ clean::
 	$(RM) day2/day2 day2/day2.err day2/day2.mh
 	$(RM) -r day2/Mercury
 
-## Day 3: BQN
+## Day 3: BQN (TODO)
 day3: $(BUILDDIR)/has-bqn
 	@echo "== Day 3 =="
 	@$(BQN) -f day3/day3.bqn $(CURDIR)/day3/input.txt
@@ -53,7 +55,7 @@ day4:
 	@$(SHELL) day4/day4.sh $(CURDIR)/day4/input.txt
 	@echo
 
-## Day 9: FORTRAN
+## Day 9: FORTRAN (TODO)
 $(BUILDDIR)/day9: day9/day9.f90 $(BUILDDIR)/has-fortran
 	$(FORTRAN) $< -o $@
 
@@ -67,48 +69,27 @@ clean::
 
 ## Day 11: Smalltalk
 day11: day11/day11.st $(BUILDDIR)/has-smalltalk
+	@echo "== Day 11 =="
 	@$(SMALLTALK) -q -f $< day11/input.txt
+	@echo
 
 ## Day 12: Prolog
 day12: day12/day12.pl $(BUILDDIR)/has-prolog
+	@echo "== Day 12 =="
 	@$(SWIPL) $< day12/input.txt
-
+	@echo
 
 ## Day 13: Ada
 day13: $(BUILDDIR)/day13
+	@echo "== Day 13 =="
 	@exec $(BUILDDIR)/day13 day13/input.txt
+	@echo
 
 $(BUILDDIR)/day13: day13/day13.adb $(BUILDDIR)/has-ada
 	$(GNATMAKE) day13/day13 -o $@ -D $(BUILDDIR)
 
 clean::
 	$(RM) $(BUILDDIR)/day13 $(BUILDDIR)/day13.o $(BUILDDIR)/day13.ali
-
-### Skeletons
-
-## BQN skeleton
-skel-bqn: skel-bqn/skel.bqn $(BUILDDIR)/has-bqn
-	$(BQN) -f $< $(CURDIR)/skel-bqn/input.txt
-
-## Uiua skeleton (TODO)
-skel-uiua: skel-uiua/skel.ua $(BUILDDIR)/has-uiua
-	$(UIUA) $< skel-uiua/input.txt
-
-## Bash skeleton
-skel-bash: skel-bash/skel.sh $(BUILDDIR)/has-bash
-	$(BASH) $< $(CURDIR)/skel-bash/input.txt
-
-## TODO:
-## ALGOL-60 skeleton
-## APL skeleton
-## Ada skeleton
-## Bash skeleton
-## COBOL skeleton
-## Epigram skeleton
-## Mizar skeleton
-## Pascal skeleton
-## Smalltalk skeleton
-## Piet skeleton
 
 ##############################################################################
 
