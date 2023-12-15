@@ -5,8 +5,14 @@
 
 Languages used
 
-- Day 1: [Twelf](twelf.org)
+- Day 1: [Twelf](twelf.org) (Part 1)
 - Day 2: [Mercury](mercurylang.org)
+- Day 3: [BQN](https://mlochbaum.github.io/BQN) (Part 1)
+- Day 4: [POSIX SH](https://pubs.opengroup.org/onlinepubs/9699919799/)
+- Day 9: [FORTRAN](https://fortran-lang.org) (Unfinished)
+- Day 11: [Smalltalk](https://www.gnu.org/software/smalltalk/)
+- Day 12: [Prolog](https://www.swi-prolog.org)
+- Day 13: [Ada](https://www.gnu.org/software/gnat/)
 
 ## 2021/2022 (unfinished)
 
