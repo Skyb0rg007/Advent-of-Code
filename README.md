@@ -1,5 +1,5 @@
 
-# My [Advent of Code](adventofcode.com) solutions
+# My [Advent of Code](https://adventofcode.com) solutions
 
 ## 2024
 

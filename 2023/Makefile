@@ -7,6 +7,9 @@ FORTRAN := gfortran
 UIUA := uiua
 SMALLTALK := gst
 GNATMAKE := gnatmake
+MARST := marst
+GFORTH := gforth
+TCLSH := tclsh
 
 BUILDDIR := _build
 
@@ -91,6 +94,28 @@ $(BUILDDIR)/day13: day13/day13.adb $(BUILDDIR)/has-ada
 clean::
 	$(RM) $(BUILDDIR)/day13 $(BUILDDIR)/day13.o $(BUILDDIR)/day13.ali
 
+## Day 14: ALGOL
+day14: $(BUILDDIR)/day14
+	@#exec $(BUILDDIR)/day14 < day14/test-input.txt
+	exec $(BUILDDIR)/day14 < day14/input.txt
+
+$(BUILDDIR)/day14: $(BUILDDIR)/day14.c
+	$(CC) $(CFLAGS) $< -o $@ $(LDLIBS) -lalgol
+
+$(BUILDDIR)/day14.c: day14/day14.alg $(BUILDDIR)/has-algol
+	$(MARST) $< -o $@
+
+## Day 19: FORTH
+# day19: $(BUILDDIR)/has-forth
+# 	$(GFORTH) day19/day19.fs -e bye day19/test-input.txt
+#
+day19:
+	lua day19/day19.lua day19/input.txt
+
+## Day 21: TCL
+day21: $(BUILDDIR)/has-tcl
+	$(TCLSH) day21/day21.tcl day21/input.txt
+
 ##############################################################################
 
 $(BUILDDIR):
@@ -128,6 +153,18 @@ $(BUILDDIR)/has-ada: | $(BUILDDIR)
 	$(GNATMAKE) --version
 	touch $@
 
+$(BUILDDIR)/has-algol: | $(BUILDDIR)
+	$(MARST) --version
+	touch $@
+
+$(BUILDDIR)/has-forth: | $(BUILDDIR)
+	$(GFORTH) --version
+	touch $@
+
+$(BUILDDIR)/has-tcl: | $(BUILDDIR)
+	echo | $(TCLSH)
+	touch $@
+
 clean::
 	$(RM) $(BUILDDIR)/has-twelf
 	$(RM) $(BUILDDIR)/has-mercury
@@ -137,4 +174,7 @@ clean::
 	$(RM) $(BUILDDIR)/has-fortran
 	$(RM) $(BUILDDIR)/has-smalltalk
 	$(RM) $(BUILDDIR)/has-ada
+	$(RM) $(BUILDDIR)/has-algol
+	$(RM) $(BUILDDIR)/has-forth
+	$(RM) $(BUILDDIR)/has-tcl
 	$(RM) -d $(BUILDDIR)
