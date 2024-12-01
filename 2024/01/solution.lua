@@ -1,6 +1,7 @@
-#!/usr/bin/env lua5.4
+#!/usr/bin/env lua
 
-local filename = arg[1] or 'test.txt'
+local inspect = require('inspect')
+local filename = assert(arg[1])
 
 local lhs, rhs = {}, {}
 local n = 0
@@ -11,6 +12,8 @@ for line in io.lines(filename) do
     lhs[n] = assert(tonumber(a))
     rhs[n] = assert(tonumber(b))
 end
+
+print('Day 1')
 
 -- Part 1: Distance
 if true then
