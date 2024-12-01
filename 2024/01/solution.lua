@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
 
 local inspect = require('inspect')
-local filename = assert(arg[1])
+local filename = assert(arg[1], 'Provide an input filename')
 
 local lhs, rhs = {}, {}
 local n = 0
