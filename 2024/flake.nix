@@ -14,10 +14,13 @@
       system: let
         pkgs = import nixpkgs {inherit system;};
       in {
-        devShell = pkgs.mkShell {
+        devShell = pkgs.mkShellNoCC {
           buildInputs = [
             (pkgs.lua54Packages.lua.withPackages (ps: [ps.inspect]))
             pkgs.lua54Packages.luarocks
+          ];
+          inputFromPackages = [
+            self.packages.${system}.day1
           ];
         };
         packages = {
