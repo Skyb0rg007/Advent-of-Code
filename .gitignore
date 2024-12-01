@@ -12,3 +12,9 @@ Mercury
 
 # Temp
 2022
+
+# Don't commit the input files
+input.txt
+test.txt
+test-input.txt
+example.txt
