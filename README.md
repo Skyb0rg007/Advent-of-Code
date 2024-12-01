@@ -1,6 +1,21 @@
 
 # My [Advent of Code](adventofcode.com) solutions
 
+## 2024
+
+I am using Nix flakes, so you can run my solutions yourself with `nix`:
+
+```shell
+$ nix run github:Skyb0rg007/Advent-of-Code?dir=2024#day1 <input-file>
+Day 1
+Part 1: 123456789
+Part 2: 987654321
+```
+
+Languages used
+
+- Day 1: [Lua](https://lua.org)
+
 ## 2023
 
 Languages used
