@@ -47,19 +47,24 @@
             '';
             propagatedBuildInputs = [
               pkgs.powershell
-              # self.packages.${system}.PSScriptAnalyzer
             ];
-            buildInputs = [pkgs.makeWrapper];
-            # fixupPhase = ''
-            #   wrapProgram $out/bin/day2 --suffix PSModulePath ";" \
-            #     "${self.packages.${system}.PSScriptAnalyzer}/share/powershell/Modules"
-            # '';
             doCheck = true;
             checkPhase = ''
               ${pkgs.powershell}/bin/pwsh -Command Invoke-ScriptAnalyzer solution.ps1
             '';
             checkInputs = [self.packages.${system}.PSScriptAnalyzer];
             meta.mainProgram = "day2";
+          };
+          day3 = pkgs.stdenvNoCC.mkDerivation {
+            pname = "aoc-2024-03";
+            version = "0.1.0";
+            src = ./03;
+            installPhase = ''
+              mkdir -p $out/bin
+              cp solution.pl $out/bin/day3
+              chmod +x $out/bin/day3
+            '';
+            buildInputs = [pkgs.perl];
           };
           PSScriptAnalyzer = pkgs.stdenvNoCC.mkDerivation (self: {
             pname = "PSScriptAnalyzer";
