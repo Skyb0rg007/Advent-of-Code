@@ -45,13 +45,17 @@
               cp solution.ps1 $out/bin/day2
               chmod +x $out/bin/day2
             '';
-            buildInputs = [pkgs.powershell];
+            propagatedBuildInputs = [
+              pkgs.powershell
+              # self.packages.${system}.PSScriptAnalyzer
+            ];
+            buildInputs = [pkgs.makeWrapper];
+            # fixupPhase = ''
+            #   wrapProgram $out/bin/day2 --suffix PSModulePath ";" \
+            #     "${self.packages.${system}.PSScriptAnalyzer}/share/powershell/Modules"
+            # '';
             doCheck = true;
             checkPhase = ''
-              echo "PSModulePath = $PSModulePath"
-              if [ -z $PSModulePath ]; then
-                exit 2
-              fi
               ${pkgs.powershell}/bin/pwsh -Command Invoke-ScriptAnalyzer solution.ps1
             '';
             checkInputs = [self.packages.${system}.PSScriptAnalyzer];
