@@ -37,6 +37,8 @@ Advent of Code 2024 Day 2 solution
 
 #>
 
+using namespace System.Collections.Generic
+
 [CmdletBinding()]
 param(
     [Parameter(Mandatory, Position=0)]
@@ -45,15 +47,69 @@ param(
 )
 
 Write-Output "Day 2"
-Write-Verbose "Hello from PowerShell"
-Write-Verbose "InputPath = $InputPath"
+
+Write-Verbose "Parsing $_"
+
+$Levels = [List[List[int]]]::new()
 
 Get-Content $InputPath | Foreach-Object {
-    Write-Verbose "Line = '$_'"
+    $Level = [List[int]]::new()
+    $Level.AddRange([int[]]($_ -split " "))
+    $Levels.Add($Level)
 }
 
-$List = [System.Collections.Generic.List[int]]::new()
-$List.Add(1)
-$List.Add(2)
-$List.Add(3)
-Write-Output $List
+function IsSafe {
+    param(
+        [List[int]]$Reports
+    )
+
+    Write-Verbose "Checking $Reports"
+
+    $Inc = $true
+    $Dec = $true
+
+    $Prev = $null
+    foreach ( $Report in $Reports ) {
+        if ( $null -eq $Prev ) {
+        } elseif ( [Math]::Abs($Report - $Prev) -gt 3 ) {
+            return $false
+        } elseif ( $Report -lt $Prev ) {
+            $Inc = $false
+            if (-not $Dec) {
+                return $false
+            }
+        } elseif ( $Report -gt $Prev ) {
+            $Dec = $false
+            if (-not $Inc) {
+                return $false
+            }
+        } else {
+            return $false
+        }
+        $Prev = $Report
+    }
+    return $true
+}
+
+$Safe = 0
+$TolSafe = 0
+foreach ( $Level in $Levels ) {
+    if ( IsSafe $Level ) {
+        Write-Verbose "$Level : Safe"
+        $Safe += 1
+        $TolSafe += 1
+    } else {
+        foreach ( $i in 0 .. ($Level.Count - 1) ) {
+            $Mod = $Level.Slice(0, $Level.Count)
+            $Mod.RemoveAt($i)
+            if (IsSafe $Mod) {
+                Write-Verbose "$Level -> $Mod : Safe"
+                $TolSafe += 1
+                break
+            }
+        }
+    }
+}
+
+Write-Output "Part 1: $Safe"
+Write-Output "Part 2: $TolSafe"
