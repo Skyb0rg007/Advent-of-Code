@@ -15,6 +15,7 @@ Part 2: 987654321
 Languages used
 
 - Day 1: [Lua](https://lua.org)
+- Day 2: [PowerShell](https://microsoft.com/powershell)
 
 ## 2023
 

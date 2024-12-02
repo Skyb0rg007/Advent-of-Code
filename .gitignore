@@ -13,6 +13,9 @@ Mercury
 # Temp
 2022
 
+# Nix
+result
+
 # Don't commit the input files
 input.txt
 test.txt
