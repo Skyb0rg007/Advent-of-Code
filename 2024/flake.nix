@@ -18,6 +18,8 @@
           inputsFrom = [
             self.packages.${system}.day1
             self.packages.${system}.day2
+            self.packages.${system}.day3
+            self.packages.${system}.day4
             self.packages.${system}.PSScriptAnalyzer
           ];
           env.PSModulePath = "${self.packages.${system}.PSScriptAnalyzer}/share/powershell/Modules";
@@ -65,6 +67,18 @@
               chmod +x $out/bin/day3
             '';
             buildInputs = [pkgs.perl];
+            meta.mainProgram = "day3";
+          };
+          day4 = pkgs.stdenvNoCC.mkDerivation {
+            pname = "aoc-2024-04";
+            version = "0.1.0";
+            src = ./04;
+            installPhase = ''
+              mkdir -p $out/bin
+              cp solution.red $out/bin/day4
+            '';
+            buildInputs = [pkgs.red];
+            meta.mainProgram = "day4";
           };
           PSScriptAnalyzer = pkgs.stdenvNoCC.mkDerivation (self: {
             pname = "PSScriptAnalyzer";
