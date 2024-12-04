@@ -80,6 +80,17 @@
             buildInputs = [pkgs.red];
             meta.mainProgram = "day4";
           };
+          day5 = pkgs.stdenvNoCC.mkDerivation {
+            pname = "aoc-2024-04";
+            version = "0.1.0";
+            src = ./05;
+            installPhase = ''
+              mkdir -p $out/bin
+              cp solution.awk $out/bin/day5
+            '';
+            buildInputs = [pkgs.gawk];
+            meta.mainProgram = "day5";
+          };
           PSScriptAnalyzer = pkgs.stdenvNoCC.mkDerivation (self: {
             pname = "PSScriptAnalyzer";
             version = "1.23.0";
