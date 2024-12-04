@@ -76,20 +76,34 @@
             installPhase = ''
               mkdir -p $out/bin
               cp solution.red $out/bin/day4
+              chmod +x $out/bin/day4
             '';
             buildInputs = [pkgs.red];
             meta.mainProgram = "day4";
           };
           day5 = pkgs.stdenvNoCC.mkDerivation {
-            pname = "aoc-2024-04";
+            pname = "aoc-2024-05";
             version = "0.1.0";
             src = ./05;
             installPhase = ''
               mkdir -p $out/bin
               cp solution.awk $out/bin/day5
+              chmod +x $out/bin/day5
             '';
             buildInputs = [pkgs.gawk];
             meta.mainProgram = "day5";
+          };
+          day6 = pkgs.stdenvNoCC.mkDerivation {
+            pname = "aoc-2024-06";
+            version = "0.1.0";
+            src = ./06;
+            installPhase = ''
+              mkdir -p $out/bin
+              cp solution.raku $out/bin/day6
+              chmod +x $out/bin/day6
+            '';
+            buildInputs = [pkgs.rakudo];
+            meta.mainProgram = "day6";
           };
           PSScriptAnalyzer = pkgs.stdenvNoCC.mkDerivation (self: {
             pname = "PSScriptAnalyzer";
