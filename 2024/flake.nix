@@ -20,9 +20,8 @@
             self.packages.${system}.day2
             self.packages.${system}.day3
             self.packages.${system}.day4
-            self.packages.${system}.PSScriptAnalyzer
+            self.packages.${system}.day5
           ];
-          env.PSModulePath = "${self.packages.${system}.PSScriptAnalyzer}/share/powershell/Modules";
         };
         packages = {
           day1 = pkgs.lua54Packages.buildLuaApplication {
@@ -47,9 +46,7 @@
               cp solution.ps1 $out/bin/day2
               chmod +x $out/bin/day2
             '';
-            propagatedBuildInputs = [
-              pkgs.powershell
-            ];
+            buildInputs = [pkgs.powershell];
             doCheck = true;
             checkPhase = ''
               ${pkgs.powershell}/bin/pwsh -Command Invoke-ScriptAnalyzer solution.ps1
