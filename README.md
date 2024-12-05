@@ -18,7 +18,7 @@ Languages used
 - Day 2: [PowerShell](https://microsoft.com/powershell)
 - Day 3: [Perl 5](https://perl.org)
 - Day 4: [Red](https://red-lang.org)
-- Day 5: [AWK](https://en.wikipedia.org/wiki/AWK)
+- Day 5: [AWK](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)
 <!-- - Day ?: [jq](https://jqlang.github.io/jq/) -->
 <!-- - Day ?: [Io](https://iolanguage.org) -->
 <!-- - Day ?: [FORTH](https://forth-standard.org) -->
