@@ -21,6 +21,7 @@
             self.packages.${system}.day3
             self.packages.${system}.day4
             self.packages.${system}.day5
+            self.packages.${system}.day6
           ];
         };
         packages = {
