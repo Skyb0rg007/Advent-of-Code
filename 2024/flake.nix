@@ -22,6 +22,7 @@
             self.packages.${system}.day4
             self.packages.${system}.day5
             self.packages.${system}.day6
+            self.packages.${system}.day7
           ];
         };
         packages = {
@@ -102,6 +103,19 @@
             '';
             buildInputs = [pkgs.rakudo];
             meta.mainProgram = "day6";
+          };
+          day7 = pkgs.stdenvNoCC.mkDerivation {
+            pname = "aoc-2024-07";
+            version = "0.1.0";
+            src = ./07;
+            installPhase = ''
+              mkdir -p $out/bin
+              cp solution.sh $out/bin/day7
+              chmod +x $out/bin/day7
+            '';
+            propagatedBuildInputs = [pkgs.bc];
+            buildInputs = [pkgs.bash];
+            meta.mainProgram = "day7";
           };
           PSScriptAnalyzer = pkgs.stdenvNoCC.mkDerivation (self: {
             pname = "PSScriptAnalyzer";

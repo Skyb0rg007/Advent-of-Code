@@ -19,17 +19,17 @@ Languages used
 - Day 3: [Perl 5](https://perl.org)
 - Day 4: [Red](https://red-lang.org)
 - Day 5: [AWK](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)
+- Day 6: [Raku](https://raku.org)
+- Day 7: [bc](https://www.gnu.org/software/bc/manual/html_mono/bc.html)
 <!-- - Day ?: [jq](https://jqlang.github.io/jq/) -->
 <!-- - Day ?: [Io](https://iolanguage.org) -->
 <!-- - Day ?: [FORTH](https://forth-standard.org) -->
-<!-- - Day ?: [Raku](https://raku.org) -->
 <!-- - Day ?: [Bash](https://www.gnu.org/software/bash/) -->
 <!-- - Day ?: [TCL](https://tcl.tk) -->
 <!-- - Day ?: [Standard ML](https://smlfamily.github.io) -->
 <!-- - Day ?: [Node](https://nodejs.org) -->
 <!-- - Day ?: [Python](https://python.org) -->
 <!-- - Day ?: [Ruby](https://ruby-lang.org) -->
-<!-- - Day ?: [bc](https://www.gnu.org/software/bc/manual/html_mono/bc.html) -->
 <!-- - Day ?: [Scheme (R7RS)](https://r7rs.org/) -->
 <!-- - Day ?: [C (C99)](https://www.open-std.org/jtc1/sc22/wg14/) -->
 <!-- - Day ?: [C++ (C++23)](https://isocpp.org) -->
