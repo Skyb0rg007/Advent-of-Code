@@ -28,6 +28,11 @@ define evaluate () {
     auto i, r
     r = values[0]
     for (i = 1; i < nvalues; i++) {
+        if ( i <= dirty && cache[i] != r ) {
+            print "ERROR\n"
+            halt
+        }
+        cache[i] = r
         if (b[i - 1] == 0) {
             r += values[i]
         } else if (b[i - 1] == 1) {
@@ -46,7 +51,7 @@ for (num_ops = 2; num_ops < 4; num_ops++) {
             break
         }
 
-        for (i = 0; i < nvalues - 1; i++) {
+        for (i = nvalues - 1; i >= 0; i--) {
             if (b[i] == (num_ops - 1)) {
                 b[i] = 0
             } else {
@@ -54,7 +59,8 @@ for (num_ops = 2; num_ops < 4; num_ops++) {
                 break
             }
         }
-        if (i == nvalues - 1 && b[i] == 0) {
+        dirty = i + 1
+        if (i == -1 && b[0] == 0) {
             break
         }
     }
