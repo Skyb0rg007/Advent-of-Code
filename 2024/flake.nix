@@ -23,6 +23,7 @@
             self.packages.${system}.day5
             self.packages.${system}.day6
             self.packages.${system}.day7
+            self.packages.${system}.day8
           ];
         };
         packages = {
@@ -116,6 +117,18 @@
             propagatedBuildInputs = [pkgs.bc];
             buildInputs = [pkgs.bash];
             meta.mainProgram = "day7";
+          };
+          day8 = pkgs.stdenvNoCC.mkDerivation {
+            pname = "aoc-2024-08";
+            version = "0.1.0";
+            src = ./08;
+            installPhase = ''
+              mkdir -p $out/bin
+              cp solution.tcl $out/bin/day8
+              chmod +x $out/bin/day8
+            '';
+            buildInputs = [pkgs.tcl-9_0];
+            meta.mainProgram = "day8";
           };
           PSScriptAnalyzer = pkgs.stdenvNoCC.mkDerivation (self: {
             pname = "PSScriptAnalyzer";
