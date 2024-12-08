@@ -24,6 +24,7 @@
             self.packages.${system}.day6
             self.packages.${system}.day7
             self.packages.${system}.day8
+            self.packages.${system}.day9
           ];
         };
         packages = {
@@ -129,6 +130,18 @@
             '';
             buildInputs = [pkgs.tcl-9_0];
             meta.mainProgram = "day8";
+          };
+          day9 = pkgs.stdenvNoCC.mkDerivation {
+            pname = "aoc-2024-09";
+            version = "0.1.0";
+            src = ./09;
+            installPhase = ''
+              mkdir -p $out/bin
+              cp solution.clj $out/bin/day9
+              chmod +x $out/bin/day9
+            '';
+            buildInputs = [pkgs.clojure];
+            meta.mainProgram = "day9";
           };
           PSScriptAnalyzer = pkgs.stdenvNoCC.mkDerivation (self: {
             pname = "PSScriptAnalyzer";
