@@ -4,7 +4,7 @@ NIX := nix
 
 BUILDDIR := _build
 AOC_URL := https://adventofcode.com/2024
-DAYS := 1 2 3 4 5 6 7 8
+DAYS := 1 2 3 4 5 6 7 8 9 10
 
 define RULES_FOR_DAY
 .PHONY: day$(1)

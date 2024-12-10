@@ -21,11 +21,12 @@ Languages used
 - Day 5: [AWK](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)
 - Day 6: [Raku](https://raku.org)
 - Day 7: [bc](https://www.gnu.org/software/bc/manual/html_mono/bc.html)
+- Day 8: [TCL](https://tcl.tk)
+- Day 9: [Clojure](https://clojure.org) (Unfinished)
+- Day 10: [FORTH](https://forth-standard.org) (Unfinished)
 <!-- - Day ?: [jq](https://jqlang.github.io/jq/) -->
 <!-- - Day ?: [Io](https://iolanguage.org) -->
-<!-- - Day ?: [FORTH](https://forth-standard.org) -->
 <!-- - Day ?: [Bash](https://www.gnu.org/software/bash/) -->
-<!-- - Day ?: [TCL](https://tcl.tk) -->
 <!-- - Day ?: [Standard ML](https://smlfamily.github.io) -->
 <!-- - Day ?: [Node](https://nodejs.org) -->
 <!-- - Day ?: [Python](https://python.org) -->
@@ -33,7 +34,6 @@ Languages used
 <!-- - Day ?: [Scheme (R7RS)](https://r7rs.org/) -->
 <!-- - Day ?: [C (C99)](https://www.open-std.org/jtc1/sc22/wg14/) -->
 <!-- - Day ?: [C++ (C++23)](https://isocpp.org) -->
-<!-- - Day ?: [Clojure](https://clojure.org) -->
 <!-- - Day ?: [Haskell](https://haskell.org) -->
 <!-- - Day ?: [OCaml](https://ocaml.org) -->
 
